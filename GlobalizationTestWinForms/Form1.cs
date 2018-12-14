@@ -5,6 +5,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Microsoft.Office.Interop.Excel;
 using Excel = Microsoft.Office.Interop.Excel.Application;
+using System.Drawing;
 
 namespace GlobalizationTestWinForms
 {
@@ -105,10 +106,22 @@ namespace GlobalizationTestWinForms
             hoja.Cells[1, 1] = "Nombre";
             hoja.Cells[1, 2] = "Apellidos";
             hoja.Cells[1, 3] = "Teléfono";
+            // Cambiar color cabecera y ajustar texto
+            Range cabecera = hoja.get_Range("A1:C1");
+            cabecera.Interior.Color = Color.Aquamarine;
+
+            // Info
             hoja.Cells[2, 1] = !string.IsNullOrEmpty(this.textBox1.Text) ? this.textBox1.Text : string.Empty;
             hoja.Cells[2, 2] = !string.IsNullOrEmpty(this.textBox2.Text) ? this.textBox2.Text : string.Empty;
             hoja.Cells[2, 3] = !string.IsNullOrEmpty(this.textBox3.Text) ? this.textBox3.Text : string.Empty;
+
+            // Fit
+            Range columns = hoja.get_Range("A:C");
+            columns.EntireColumn.AutoFit();
+
+            // Shox Excel
             app.Visible = true;
+
         }
     }
 }
